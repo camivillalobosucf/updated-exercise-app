@@ -1,4 +1,4 @@
-/* Center the app container */
+/*CAMIS BASIC STYLING*/
 #app-container {
     display: flex;
     flex-direction: column;
@@ -48,7 +48,6 @@
     margin-bottom: 0px;
   }
   
-  /* Remove default margin */
   body {
     margin: 0;
     display: flex;

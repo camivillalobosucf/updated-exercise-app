@@ -7,7 +7,7 @@ function App() {
   const [selectedExercise, setSelectedExercise] = useState(null);
   const [exerciseType, setExerciseType] = useState(null);
 
-  // Define a list of exercises
+  //defining the list of exercises
   const exercises = [
     { name: "Push-Ups", type: "repetition" },
     { name: "Squats", type: "repetition" },
@@ -19,7 +19,7 @@ function App() {
     <div id="app-container">
       <h1>Exercise Tracker</h1>
 
-      {/* Menu of Exercises */}
+      {/*menu of Exercises */}
       {!selectedExercise && (
         <div id='exercise-container'>
           <h2>Select an Exercise:</h2>
@@ -37,15 +37,15 @@ function App() {
         </div>
       )}
 
-      {/* Render the correct screen based on exercise type */}
+      {/*showcase the correct screen based on exercise type*/}
       {exerciseType === "repetition" && <RepetitionExercise name={selectedExercise} />}
       {exerciseType === "duration" && <DurationExercise name={selectedExercise} />}
 
-      {/* Back to menu button */}
+      {/*back to menu button */}
       {selectedExercise && (
         <button onClick={() => {
           setSelectedExercise(null);
-          setExerciseType(null);  // 🔥 Reset exercise type as well
+          setExerciseType(null);
         }}>
           Go Back
         </button>
