@@ -1,36 +1,32 @@
 import { useState, useEffect } from "react";
 
 function RunningExercise({ name }) {
+  //state for timer (lap time) and laps history
   const [isRunning, setIsRunning] = useState(false);
-  const [lapTime, setLapTime] = useState(0);//time for current lap
+  const [lapTime, setLapTime] = useState(0);
   const [laps, setLaps] = useState([]);
-  const [timerInterval, setTimerInterval] = useState(null);
 
+  //useEffect handles starting/stopping the timer
   useEffect(() => {
-    let interval;
-    if (isRunning) {
-      interval = setInterval(() => {
-        setLapTime((prev) => prev + 1);
-      }, 1000);
-      setTimerInterval(interval);
-    } else {
-      clearInterval(timerInterval);
-    }
+    if (!isRunning) return; //if not running, exit
 
+    const interval = setInterval(() => setLapTime((prev) => prev + 1), 1000);
+
+    //cleanup interval on stop/unmount
     return () => clearInterval(interval);
   }, [isRunning]);
 
-  const formatTime = (seconds) => {
-    const minutes = String(Math.floor(seconds / 60)).padStart(2, "0");
-    const secs = String(seconds % 60).padStart(2, "0");
-    return `${minutes}:${secs}`;
-  };
+  // frmat time as mm:ss
+  const formatTime = (seconds) =>
+    `${String(Math.floor(seconds / 60)).padStart(2, "0")}:${String(seconds % 60).padStart(2, "0")}`;
 
+  //record current lap time & reset lap timer
   const handleLap = () => {
     setLaps((prevLaps) => [...prevLaps, lapTime]);
-    setLapTime(0); // Reset lap timer
+    setLapTime(0);
   };
 
+  //reset everything to initial state
   const handleReset = () => {
     setIsRunning(false);
     setLapTime(0);
@@ -42,7 +38,8 @@ function RunningExercise({ name }) {
       <h2>{name}</h2>
       <p>Lap Time: {formatTime(lapTime)}</p>
 
-      <div id='repetition-button-container'>
+      {/*controls record/Stopl, lap and teset*/}
+      <div id="repetition-button-container">
         <button onClick={() => setIsRunning(!isRunning)}>
           {isRunning ? "Stop" : "Record"}
         </button>
@@ -52,6 +49,7 @@ function RunningExercise({ name }) {
         <button onClick={handleReset}>Reset</button>
       </div>
 
+      {/*list of recorded lap times */}
       <h3>Lap Times:</h3>
       <div>
         {laps.map((lap, index) => (
