@@ -1,6 +1,7 @@
 import { useState } from "react";
 import RepetitionExercise from "./components/RepetitionExercise/index.jsx";
 import DurationExercise from "./components/DurationExercise/index.jsx";
+import RunningExercise from "./components/RunningExercise/index.jsx";
 import "./style.css";
 
 function App() {
@@ -13,6 +14,8 @@ function App() {
     { name: "Squats", type: "repetition" },
     { name: "Jump Rope", type: "duration" },
     { name: "Plank", type: "duration" },
+    { name: "Running", type: "running" },
+
   ];
 
   return (
@@ -40,6 +43,8 @@ function App() {
       {/*showcase the correct screen based on exercise type*/}
       {exerciseType === "repetition" && <RepetitionExercise name={selectedExercise} />}
       {exerciseType === "duration" && <DurationExercise name={selectedExercise} />}
+      {exerciseType === "running" && <RunningExercise name={selectedExercise} />}
+
 
       {/*back to menu button */}
       {selectedExercise && (
